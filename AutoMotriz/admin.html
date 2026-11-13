@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Administración - AutoMotriz</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-negro">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">Auto<span class="text-rojo">Motriz</span></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navMenu">
+          <ul class="navbar-nav ms-auto" id="menu"></ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container-xxl my-5 flex-grow-1">
+    <div class="card shadow-sm">
+      <div class="card-header bg-negro text-white d-flex justify-content-between align-items-center">
+        <h1 class="h5 mb-0">Administración de solicitudes</h1>
+        <a href="solicitud.html" class="btn btn-rojo btn-sm">Nueva solicitud</a>
+      </div>
+      <div class="card-body">
+
+        <div class="row g-3 mb-3">
+          <div class="col-md-4">
+            <input type="text" id="buscar" class="form-control" placeholder="Buscar por placa o cliente">
+          </div>
+          <div class="col-md-4">
+            <select id="filtroEstado" class="form-select"></select>
+          </div>
+          <div class="col-md-4 d-flex align-items-center">
+            <span>Registros mostrados: <strong id="totalRegistros">0</strong></span>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table table-striped align-middle">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Cliente</th>
+                <th>Placa</th>
+                <th>Vehículo</th>
+                <th>Servicio</th>
+                <th>Fecha y hora</th>
+                <th>Estado</th>
+                <th>Cambiar estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="tablaAdmin"></tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  
+  <div class="modal fade" id="modalEditar" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+      <div class="modal-content">
+        <form id="formEditar" novalidate>
+          <div class="modal-header bg-negro text-white">
+            <h2 class="modal-title h5">Editar solicitud</h2>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+          </div>
+
+          <div class="modal-body">
+            <input type="hidden" id="ed_id">
+
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label for="ed_cliente" class="form-label">Cliente (dueño)</label>
+                <select id="ed_cliente" class="form-select"></select>
+              </div>
+              <div class="col-md-6">
+                <label for="ed_estado" class="form-label">Estado</label>
+                <select id="ed_estado" class="form-select"></select>
+              </div>
+
+              <div class="col-md-4">
+                <label for="ed_nombre" class="form-label">Nombre</label>
+                <input type="text" id="ed_nombre" class="form-control">
+              </div>
+              <div class="col-md-4">
+                <label for="ed_telefono" class="form-label">Teléfono</label>
+                <input type="text" id="ed_telefono" class="form-control" maxlength="10">
+              </div>
+              <div class="col-md-4">
+                <label for="ed_correo" class="form-label">Correo</label>
+                <input type="email" id="ed_correo" class="form-control">
+              </div>
+
+              <div class="col-md-4">
+                <label for="ed_placa" class="form-label">Placa</label>
+                <input type="text" id="ed_placa" class="form-control" maxlength="8">
+              </div>
+              <div class="col-md-4">
+                <label for="ed_marca" class="form-label">Marca</label>
+                <select id="ed_marca" class="form-select"></select>
+              </div>
+              <div class="col-md-4">
+                <label for="ed_modelo" class="form-label">Modelo</label>
+                <select id="ed_modelo" class="form-select"></select>
+              </div>
+
+              <div class="col-md-6">
+                <label for="ed_anio" class="form-label">Año</label>
+                <input type="number" id="ed_anio" class="form-control" min="1900" max="2035">
+              </div>
+              <div class="col-md-6">
+                <label for="ed_kilometraje" class="form-label">Kilometraje</label>
+                <input type="number" id="ed_kilometraje" class="form-control" min="0" max="999999">
+              </div>
+
+              <div class="col-12">
+                <span class="form-label d-block">Tipo de combustible</span>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="ed_combustible" id="ed_comb1" value="Gasolina">
+                  <label class="form-check-label" for="ed_comb1">Gasolina</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="ed_combustible" id="ed_comb2" value="Diésel">
+                  <label class="form-check-label" for="ed_comb2">Diésel</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="ed_combustible" id="ed_comb3" value="Híbrido">
+                  <label class="form-check-label" for="ed_comb3">Híbrido</label>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label for="ed_servicio" class="form-label">Servicio</label>
+                <select id="ed_servicio" class="form-select"></select>
+              </div>
+              <div class="col-md-3">
+                <label for="ed_fecha" class="form-label">Fecha</label>
+                <input type="date" id="ed_fecha" class="form-control">
+              </div>
+              <div class="col-md-3">
+                <label for="ed_hora" class="form-label">Hora</label>
+                <input type="time" id="ed_hora" class="form-control">
+              </div>
+
+              <div class="col-12">
+                <span class="form-label d-block">Servicios adicionales</span>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" name="ed_extras" id="ed_extra1" value="Lavado">
+                  <label class="form-check-label" for="ed_extra1">Lavado</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" name="ed_extras" id="ed_extra2" value="Revisión de luces">
+                  <label class="form-check-label" for="ed_extra2">Revisión de luces</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" name="ed_extras" id="ed_extra3" value="Revisión de fluidos">
+                  <label class="form-check-label" for="ed_extra3">Revisión de fluidos</label>
+                </div>
+              </div>
+
+              <div class="col-12">
+                <label for="ed_observaciones" class="form-label">Observaciones</label>
+                <textarea id="ed_observaciones" class="form-control" rows="3"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-rojo">Guardar cambios</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <footer class="py-3 mt-auto">
+    <div class="container text-center">
+      <small>&copy; 2026 AutoMotriz. Todos los derechos reservados.</small>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="js/datos.js"></script>
+  <script src="js/validaciones.js"></script>
+  <script src="js/autenticacion.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

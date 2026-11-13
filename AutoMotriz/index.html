@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AutoMotriz - Taller de mantenimiento</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-negro">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">Auto<span class="text-rojo">Motriz</span></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navMenu">
+          <ul class="navbar-nav ms-auto" id="menu"></ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main class="flex-grow-1">
+
+    <section id="inicio" class="hero text-center">
+      <div class="container">
+        <h1 class="display-4 fw-bold">Auto<span class="text-rojo">Motriz</span></h1>
+        <p class="lead my-4">Cuidamos tu vehículo para que tú sigas tranquilo en el camino.</p>
+        <a href="solicitud.html" class="btn btn-rojo btn-lg">Solicitar mantenimiento</a>
+      </div>
+    </section>
+
+    <section id="acerca" class="py-5">
+      <div class="container">
+        <h2 class="text-center mb-4">Acerca de <span class="text-rojo">nosotros</span></h2>
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+            <p class="text-center">
+              AutoMotriz es un taller de mantenimiento automotriz con técnicos capacitados y equipos
+              de diagnóstico modernos. Nuestra misión es ofrecer un servicio honesto, rápido y de
+              calidad. Ahora puedes solicitar tu mantenimiento en línea y consultar el estado de tu
+              vehículo cuando quieras.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="servicios" class="py-5 bg-white">
+      <div class="container">
+        <h2 class="text-center mb-4">Nuestros <span class="text-rojo">servicios</span></h2>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="listaServicios"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="py-4 mt-auto">
+    <div class="container text-center">
+      <p class="mb-1">Av. Principal 123 | Tel: 02 234 5678 | info@automotriz.com</p>
+      <p class="mb-1">Lunes a viernes 08:00 - 17:00 | Sábados 08:00 - 13:00</p>
+      <small>&copy; 2026 AutoMotriz. Todos los derechos reservados.</small>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="js/datos.js"></script>
+  <script src="js/autenticacion.js"></script>
+  <script>
+    document.getElementById("listaServicios").innerHTML = SERVICIOS.map(s => `
+      <div class="col">
+        <div class="card card-servicio h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">${s.nombre}</h5>
+            <p class="card-text">${s.descripcion}</p>
+          </div>
+          <div class="card-footer fw-bold text-rojo">Desde $${s.precio}</div>
+        </div>
+      </div>`).join("");
+  </script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+:root {
+  --rojo: #c8102e;
+  --rojo-oscuro: #a00d24;
+  --negro: #111111;
+  --gris: #f4f4f4;
+}
+
+body {
+  background-color: var(--gris);
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.bg-negro {
+   background-color: var(--negro) !important; 
+}
+.text-rojo {
+   color: var(--rojo) !important; 
+}
+
+.btn-rojo {
+  background-color: var(--rojo);
+  border-color: var(--rojo);
+  color: #fff;
+}
+.btn-rojo:hover {
+  background-color: var(--rojo-oscuro);
+  border-color: var(--rojo-oscuro);
+  color: #fff;
+}
+
+/* Navbar */
+.navbar {
+   border-bottom: 3px solid var(--rojo); 
+}
+.navbar-brand {
+   font-weight: 700; font-size: 1.5rem; 
+}
+.navbar .nav-link:hover {
+   color: var(--rojo) !important; 
+}
+
+
+.hero {
+  background-color: var(--negro);
+  color: #fff;
+  padding: 5rem 0;
+  border-bottom: 5px solid var(--rojo);
+}
+
+
+section { 
+  scroll-margin-top: 70px; 
+}
+
+
+.card-servicio { 
+  border-top: 4px solid var(--rojo); 
+}
+
+
+footer {
+  background-color: var(--negro);
+  color: #cccccc;
+  border-top: 5px solid var(--rojo);
+}
+
+
+.table thead { 
+  background-color: var(--negro); color: #fff; 
+}
